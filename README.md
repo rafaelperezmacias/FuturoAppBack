@@ -10,9 +10,11 @@
 ## Uso
 
 1. _index.ts_ levanta una aplicacion de express y las rutas principales
-2. _/controllers_ contiene los controladores de conexion a la bd
-3. _/routes_ contiene las rutas a las cuales accedera
-4. Archivos
+2. _/build_ contiene el codigo js de salida
+3. _/src_ contiene el codigo ts (directorio donde trabajamos)
+4. _/controllers_ contiene los controladores de conexion a la bd
+5. _/routes_ contiene las rutas a las cuales accedera
+6. Archivos
     * _models_ contiene los modelados de los objetos a utilizar
     * _validations_ contiene las validaciones de campos de los modelos
     * _database_ contiene la conexion a la base de datos
@@ -20,6 +22,7 @@
 
 ## Ejemplo de archivo keys
 
+```typescript
 export default {
     database: {
         // TODO: Cambiar con los datos de la base de datos
@@ -29,3 +32,4 @@ export default {
         database: ''
     }
 };
+```
