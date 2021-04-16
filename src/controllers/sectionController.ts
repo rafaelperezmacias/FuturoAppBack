@@ -2,6 +2,7 @@ import { json, Request, Response } from 'express';
 import { LocalDistrict, Municipality, Section } from '../models';
 
 import db from '../database';
+import secrets from '../secrets';
 
 class SectionController {
 
@@ -9,7 +10,7 @@ class SectionController {
 
         const keyInsert = request.params.id;
 
-        if ( !keyInsert || keyInsert !== "myKey") {
+        if ( !keyInsert || keyInsert !== secrets.secret.key_request ) {
             return response.json({
                 code: 200
             });

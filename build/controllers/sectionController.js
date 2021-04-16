@@ -4,10 +4,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const database_1 = __importDefault(require("../database"));
+const secrets_1 = __importDefault(require("../secrets"));
 class SectionController {
     getInfo(request, response) {
         const keyInsert = request.params.id;
-        if (!keyInsert || keyInsert !== "myKey") {
+        if (!keyInsert || keyInsert !== secrets_1.default.secret.key_request) {
             return response.json({
                 code: 200
             });
