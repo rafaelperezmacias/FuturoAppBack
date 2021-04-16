@@ -2,47 +2,88 @@ import { json, Request, Response } from 'express';
 import { Volunteer } from '../models';
 import { Validations } from '../validations';
 
+import  fs  from 'fs';
+
 import db from '../database';
 
 class VolunteerController {
 
     createVolunteer(request: Request, response: Response) {
 
-        const volunteer: Volunteer = request.body || { };
+        const volunteer: Volunteer = request.body.volunteer || { };
+        const keyInsert = request.body.key;
 
-        // const id_volunteer = request.params.id;
+        let buff = Buffer.from(volunteer.imgString || "", "base64");
+        fs.writeFile('./img/credenciales/' + volunteer.electorKey + ".png", buff, (err) => {
+            if ( err ) {
+                return console.log(err);
+            }
+            console.log("The file was saved!");
+        });
+
+        return response.json({
+            code: 100,
+            volunteer: volunteer
+        });
+
+        if ( !keyInsert || keyInsert !== "myKey") {
+            return response.json({
+                code: 100,
+                volunteer: volunteer
+            });
+        }
 
         if ( !Validations.isValidVolunteerInsert( volunteer ) ) {
             return response.json({
-                code: 100
+                code: 101,
+                volunteer: volunteer
             });
         }
 
         if ( !Validations.isValidVolunteerValues( volunteer ) ) {
             return response.json({
-                code: 101
+                code: 102,
+                volunteer: volunteer
             });
         }
 
         db.getConnection( (error, connection) => {
             if (error) {
                 return response.json({
-                    code: 102
+                    code: 103,
+                    volunteer: volunteer
                 });
             }
 
             connection.beginTransaction( (error) => {
                 if (error) {
                     return response.json({
-                        code: 101
+                        code: 104,
+                        volunteer: volunteer
                     });
                 }
 
-                const query = 'INSERT INTO `volunteer`(`nombres`, `apaterno`, `amaterno`) VALUES (?, ?, ?)';
+                const query = 'INSERT INTO `volunteer`(`lastName1`, `lastName2`, `names`, `addressName`, `addressNumExt`, `addressNumInt`,'+
+                              '`suburb`, `zipCode`, `electorKey`, `email`, `phone`, `stateNumber`, `section`, `sector`, `notes`, `typeUser`, `imgString`)'+
+                              'VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
                 const params = [
-                    volunteer.nombres,
-                    volunteer.apaterno,
-                    volunteer.amaterno
+                    volunteer.lastName1,
+                    volunteer.lastName2,
+                    volunteer.names,
+                    volunteer.addressName,
+                    volunteer.addressNumExt,
+                    volunteer.addressNumInt,
+                    volunteer.suburb,
+                    volunteer.zipCode,
+                    volunteer.electorKey,
+                    volunteer.email,
+                    volunteer.phone,
+                    volunteer.stateNumber,
+                    volunteer.section,
+                    volunteer.sector,
+                    volunteer.notes,
+                    volunteer.typeUser,
+                    volunteer.imgString
                 ]
 
                 db.query( query, params, (error, result, fields) => {
@@ -50,25 +91,28 @@ class VolunteerController {
                     if ( error ) {
                         return connection.rollback( () => {
                             return response.json({
-                                code: 103
+                                code: 105,
+                                volunteer: volunteer
                             });
                         });
                     }
 
-                    volunteer.id_voluntario = result.insertId;
+                    volunteer.idVolunteer = result.insertId;
 
                     connection.commit( (error) => {
                         if (error) {
                             return connection.rollback(() =>{
                                 return response.json({
-                                    code: 104
+                                    code: 106,
+                                    volunteer: volunteer
                                 });
                             });
                         }
                         
                         return response.json({
-                            code: 105,
-                            id_voluntario: volunteer.id_voluntario
+                            code: 110,
+                            id_voluntario: volunteer.idVolunteer,
+                            volunteer: volunteer
                         });
 
                     });
@@ -79,12 +123,6 @@ class VolunteerController {
 
         });
 
-    }
-
-    getVolunteers(request: Request, response: Response) {
-        return response.json({
-            "Hola": "hola"
-        })
     }
 
 }

@@ -11,7 +11,7 @@ class SectionRoutes {
         this.config();
     }
     config() {
-        this.router.get('/appSetup', sectionController_1.default.getInfo);
+        this.router.get('/appSetup/:id', sectionController_1.default.getInfo);
     }
 }
 exports.default = new SectionRoutes().router;

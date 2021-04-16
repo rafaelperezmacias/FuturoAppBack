@@ -6,37 +6,44 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const database_1 = __importDefault(require("../database"));
 class SectionController {
     getInfo(request, response) {
+        const keyInsert = request.params.id;
+        if (!keyInsert || keyInsert !== "myKey") {
+            return response.json({
+                code: 200
+            });
+        }
         database_1.default.getConnection((error, connection) => {
             if (error) {
                 return response.json({
-                    code: 200
+                    code: 201
                 });
             }
             let jsonResponse = {};
-            let query = 'SELECT * FROM `municipios` ORDER BY municipios.numero ASC;';
+            let query = 'SELECT * FROM `municipality` ORDER BY municipality.municipalityNumber ASC;';
             database_1.default.query(query, [], (error, result, fields) => {
                 if (error) {
                     return response.json({
-                        code: 201
+                        code: 202
                     });
                 }
-                jsonResponse['municipios'] = result;
-                let query = 'SELECT * FROM `distritos_locales` ORDER BY distritos_locales.numero ASC;';
+                jsonResponse['municipalities'] = result;
+                let query = 'SELECT * FROM `localdistrict` ORDER BY localDistrict.numberLocalDistrict ASC;';
                 database_1.default.query(query, [], (error, result, fields) => {
                     if (error) {
                         return response.json({
-                            code: 202
+                            code: 203
                         });
                     }
-                    jsonResponse['distritos_locales'] = result;
-                    let query = 'SELECT * FROM `secciones` ORDER BY secciones.numero ASC;';
+                    jsonResponse['localDistricts'] = result;
+                    let query = 'SELECT * FROM `section` ORDER BY section.section ASC;';
                     database_1.default.query(query, [], (error, result, fields) => {
                         if (error) {
                             return response.json({
-                                code: 203
+                                code: 204
                             });
                         }
-                        jsonResponse['secciones'] = result;
+                        jsonResponse['sections'] = result;
+                        jsonResponse['code'] = 205;
                         return response.json(jsonResponse);
                     });
                 });

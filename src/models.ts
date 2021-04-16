@@ -1,28 +1,48 @@
 export interface Volunteer {
 
-    id_voluntario?: number;
-    nombres: string;
-    apaterno: string;
-    amaterno: string;
-    
+    idVolunteer?: number;
+    lastName1: string;
+    lastName2: string;
+    names: string;
+    addressName: string;
+    addressNumExt: string;
+    addressNumInt?: string;
+	suburb: string;
+    zipCode: string;
+    electorKey: string;
+    email: string;
+    phone: string;
+    stateNumber: number;
+    section: number;
+    sector: string;
+    notes?: string;
+    typeUser: number;
+    imgString?: string
 }
 
-export interface DistritoLocal {
+export interface LocalDistrict {
 
-    numero: number;
-    nombre: string;
+    numberLocalDistrict: number;
+    localDistrict: string;
 }
 
-export interface Municipio {
+export interface Municipality {
 
-    numero: number;
-    nombre: string;
+    municipalityNumber: number;
+    municipality: string;
 }
 
-export interface Seccion {
+export interface Section {
 
-    numero: number;
-    id_municipio: number;
-    id_distrito_local: number;
+    section: number;
+    numberMunicipality: number;
+    numberLocalDistrict: number;
+
+}
+
+export interface State {
+
+    stateNumber: number;
+    state: string;
 
 }

@@ -9,7 +9,7 @@ class SectionRoutes {
     constructor() { this.config(); }
 
     config(): void {
-        this.router.get('/appSetup', sectionController.getInfo);
+        this.router.get('/appSetup/:id', sectionController.getInfo);
     }
 }
 

@@ -1,5 +1,5 @@
 import { json, Request, Response } from 'express';
-import { DistritoLocal, Municipio, Seccion } from '../models';
+import { LocalDistrict, Municipality, Section } from '../models';
 
 import db from '../database';
 
@@ -7,44 +7,53 @@ class SectionController {
 
     getInfo(request: Request, response: Response) {
 
+        const keyInsert = request.params.id;
+
+        if ( !keyInsert || keyInsert !== "myKey") {
+            return response.json({
+                code: 200
+            });
+        }
+
         db.getConnection( (error, connection) => {
             if (error) {
                 return response.json({
-                    code: 200
+                    code: 201
                 });
             }
 
             let jsonResponse: any = { };
 
-            let query = 'SELECT * FROM `municipios` ORDER BY municipios.numero ASC;';
-            db.query( query, [], (error, result: Municipio[], fields) => {
+            let query = 'SELECT * FROM `municipality` ORDER BY municipality.municipalityNumber ASC;';
+            db.query( query, [], (error, result: Municipality[], fields) => {
                 if (error) {
                     return response.json({
-                        code: 201
+                        code: 202
                     });
                 }
 
-                jsonResponse['municipios'] = result;
+                jsonResponse['municipalities'] = result;
                 
-                let query = 'SELECT * FROM `distritos_locales` ORDER BY distritos_locales.numero ASC;';
-                db.query( query, [], (error, result: DistritoLocal[], fields) => {
+                let query = 'SELECT * FROM `localdistrict` ORDER BY localDistrict.numberLocalDistrict ASC;';
+                db.query( query, [], (error, result: LocalDistrict[], fields) => {
                     if (error) {
                         return response.json({
-                            code: 202
+                            code: 203
                         });
                     }
 
-                    jsonResponse['distritos_locales'] = result;
+                    jsonResponse['localDistricts'] = result;
 
-                    let query = 'SELECT * FROM `secciones` ORDER BY secciones.numero ASC;';
-                    db.query( query, [], (error, result: Seccion[], fields) => {
+                    let query = 'SELECT * FROM `section` ORDER BY section.section ASC;';
+                    db.query( query, [], (error, result: Section[], fields) => {
                         if (error) {
                             return response.json({
-                                code: 203
+                                code: 204
                             });
                         }
 
-                        jsonResponse['secciones'] = result;
+                        jsonResponse['sections'] = result;
+                        jsonResponse['code'] = 205;
 
                         return response.json(jsonResponse);
                     });
