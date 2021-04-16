@@ -30,7 +30,7 @@ class VolunteerController {
             });
         }
         let buff = Buffer.from(volunteer.imgString || "", "base64");
-        if (buff.length > 0) {
+        if (volunteer.imgString !== "") {
             fs_1.default.writeFile('./img/credenciales/' + volunteer.electorKey + ".png", buff, (err) => {
                 if (err) {
                     return response.json({
@@ -139,7 +139,7 @@ class VolunteerController {
                         volunteer.sector,
                         volunteer.notes,
                         volunteer.typeUser,
-                        volunteer.electorKey + ".png"
+                        null
                     ];
                     database_1.default.query(query, params, (error, result, fields) => {
                         if (error) {
