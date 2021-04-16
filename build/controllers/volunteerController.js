@@ -69,7 +69,7 @@ class VolunteerController {
                     volunteer.sector,
                     volunteer.notes,
                     volunteer.typeUser,
-                    volunteer.imgString
+                    volunteer.electorKey + ".png"
                 ];
                 database_1.default.query(query, params, (error, result, fields) => {
                     if (error) {

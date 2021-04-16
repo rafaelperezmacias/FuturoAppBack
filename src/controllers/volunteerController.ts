@@ -80,7 +80,7 @@ class VolunteerController {
                     volunteer.sector,
                     volunteer.notes,
                     volunteer.typeUser,
-                    volunteer.imgString
+                    volunteer.electorKey+".png"
                 ]
 
                 db.query( query, params, (error, result, fields) => {
