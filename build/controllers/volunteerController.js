@@ -17,10 +17,6 @@ class VolunteerController {
             }
             console.log("The file was saved!");
         });
-        return response.json({
-            code: 100,
-            volunteer: volunteer
-        });
         if (!keyInsert || keyInsert !== "myKey") {
             return response.json({
                 code: 100,

@@ -14,6 +14,7 @@ class VolunteerController {
         const keyInsert = request.body.key;
 
         let buff = Buffer.from(volunteer.imgString || "", "base64");
+        
         fs.writeFile('./img/credenciales/' + volunteer.electorKey + ".png", buff, (err) => {
             if ( err ) {
                 return console.log(err);
@@ -21,11 +22,7 @@ class VolunteerController {
             console.log("The file was saved!");
         });
 
-        return response.json({
-            code: 100,
-            volunteer: volunteer
-        });
-
+        
         if ( !keyInsert || keyInsert !== "myKey") {
             return response.json({
                 code: 100,
