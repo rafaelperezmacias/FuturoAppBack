@@ -45,166 +45,95 @@ class VolunteerController {
                     });
                 }
                 
-                db.getConnection( (error, connection) => {
-                    if (error) {
+                const query = 'INSERT INTO `volunteer`(`lastName1`, `lastName2`, `names`, `addressName`, `addressNumExt`, `addressNumInt`,'+
+                                '`suburb`, `zipCode`, `electorKey`, `email`, `phone`, `stateNumber`, `section`, `sector`, `notes`, `typeUser`, `imgString`)'+
+                                'VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+                const params = [
+                    volunteer.lastName1,
+                    volunteer.lastName2,
+                    volunteer.names,
+                    volunteer.addressName,
+                    volunteer.addressNumExt,
+                    volunteer.addressNumInt,
+                    volunteer.suburb,
+                    volunteer.zipCode,
+                    volunteer.electorKey,
+                    volunteer.email,
+                    volunteer.phone,
+                    volunteer.stateNumber,
+                    volunteer.section,
+                    volunteer.sector,
+                    volunteer.notes,
+                    volunteer.typeUser,
+                    volunteer.electorKey+".png"
+                ]
+
+                db.query( query, params, (error, result, fields) => {
+                    if ( error ) {
                         return response.json({
                             code: 104,
                             volunteer: volunteer
                         });
                     }
-        
-                    connection.beginTransaction( (error) => {
-                        if (error) {
-                            return response.json({
-                                code: 105,
-                                volunteer: volunteer
-                            });
-                        }
-        
-                        const query = 'INSERT INTO `volunteer`(`lastName1`, `lastName2`, `names`, `addressName`, `addressNumExt`, `addressNumInt`,'+
-                                      '`suburb`, `zipCode`, `electorKey`, `email`, `phone`, `stateNumber`, `section`, `sector`, `notes`, `typeUser`, `imgString`)'+
-                                      'VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
-                        const params = [
-                            volunteer.lastName1,
-                            volunteer.lastName2,
-                            volunteer.names,
-                            volunteer.addressName,
-                            volunteer.addressNumExt,
-                            volunteer.addressNumInt,
-                            volunteer.suburb,
-                            volunteer.zipCode,
-                            volunteer.electorKey,
-                            volunteer.email,
-                            volunteer.phone,
-                            volunteer.stateNumber,
-                            volunteer.section,
-                            volunteer.sector,
-                            volunteer.notes,
-                            volunteer.typeUser,
-                            volunteer.electorKey+".png"
-                        ]
-        
-                        db.query( query, params, (error, result, fields) => {
-                            
-                            if ( error ) {
-                                
-                                return connection.rollback( () => {
-                                    return response.json({
-                                        code: 106,
-                                        volunteer: volunteer
-                                    });
-                                });
-                            }
-        
-                            volunteer.idVolunteer = result.insertId;
-        
-                            connection.commit( (error) => {
-                                if (error) {
-                                    return connection.rollback(() =>{
-                                        return response.json({
-                                            code: 107,
-                                            volunteer: volunteer
-                                        });
-                                    });
-                                }
-                                
-                                return response.json({
-                                    code: 110,
-                                    id_voluntario: volunteer.idVolunteer,
-                                    volunteer: volunteer
-                                });
-        
-                            });
-        
-                        });
-                    
+
+                    volunteer.idVolunteer = result.insertId;
+
+                    return response.json({
+                        code: 110,
+                        id_voluntario: volunteer.idVolunteer,
+                        volunteer: volunteer
                     });
-        
-                });
+
+                });   
 
             });
             
         } else {
 
-            db.getConnection( (error, connection) => {
-                if (error) {
+            const query = 'INSERT INTO `volunteer`(`lastName1`, `lastName2`, `names`, `addressName`, `addressNumExt`, `addressNumInt`,'+
+                                '`suburb`, `zipCode`, `electorKey`, `email`, `phone`, `stateNumber`, `section`, `sector`, `notes`, `typeUser`, `imgString`)'+
+                                'VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+            const params = [
+                volunteer.lastName1,
+                volunteer.lastName2,
+                volunteer.names,
+                volunteer.addressName,
+                volunteer.addressNumExt,
+                volunteer.addressNumInt,
+                volunteer.suburb,
+                volunteer.zipCode,
+                volunteer.electorKey,
+                volunteer.email,
+                volunteer.phone,
+                volunteer.stateNumber,
+                volunteer.section,
+                volunteer.sector,
+                volunteer.notes,
+                volunteer.typeUser,
+                null
+            ]
+
+            db.query( query, params, (error, result, fields) => {
+                if ( error ) {
                     return response.json({
                         code: 104,
                         volunteer: volunteer
                     });
                 }
-    
-                connection.beginTransaction( (error) => {
-                    if (error) {
-                        return response.json({
-                            code: 105,
-                            volunteer: volunteer
-                        });
-                    }
-    
-                    const query = 'INSERT INTO `volunteer`(`lastName1`, `lastName2`, `names`, `addressName`, `addressNumExt`, `addressNumInt`,'+
-                                  '`suburb`, `zipCode`, `electorKey`, `email`, `phone`, `stateNumber`, `section`, `sector`, `notes`, `typeUser`, `imgString`)'+
-                                  'VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
-                    const params = [
-                        volunteer.lastName1,
-                        volunteer.lastName2,
-                        volunteer.names,
-                        volunteer.addressName,
-                        volunteer.addressNumExt,
-                        volunteer.addressNumInt,
-                        volunteer.suburb,
-                        volunteer.zipCode,
-                        volunteer.electorKey,
-                        volunteer.email,
-                        volunteer.phone,
-                        volunteer.stateNumber,
-                        volunteer.section,
-                        volunteer.sector,
-                        volunteer.notes,
-                        volunteer.typeUser,
-                        null
-                    ]
-    
-                    db.query( query, params, (error, result, fields) => {
-                        
-                        if ( error ) {
-                            return connection.rollback( () => {
-                                return response.json({
-                                    code: 106,
-                                    volunteer: volunteer
-                                });
-                            });
-                        }
-    
-                        volunteer.idVolunteer = result.insertId;
-    
-                        connection.commit( (error) => {
-                            if (error) {
-                                return connection.rollback(() =>{
-                                    return response.json({
-                                        code: 107,
-                                        volunteer: volunteer
-                                    });
-                                });
-                            }
-                            
-                            return response.json({
-                                code: 110,
-                                id_voluntario: volunteer.idVolunteer,
-                                volunteer: volunteer
-                            });
-    
-                        });
-    
-                    });
-                
+
+                volunteer.idVolunteer = result.insertId;
+
+                return response.json({
+                    code: 110,
+                    id_voluntario: volunteer.idVolunteer,
+                    volunteer: volunteer
                 });
-    
+
             });
+                
         }
 
     }
-
 }
 
 const volunteerController = new VolunteerController();

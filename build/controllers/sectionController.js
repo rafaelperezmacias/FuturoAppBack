@@ -13,40 +13,33 @@ class SectionController {
                 code: 200
             });
         }
-        database_1.default.getConnection((error, connection) => {
+        let jsonResponse = {};
+        let query = 'SELECT * FROM `municipality` ORDER BY municipality.municipalityNumber ASC;';
+        database_1.default.query(query, [], (error, result, fields) => {
             if (error) {
                 return response.json({
-                    code: 201
+                    code: 202
                 });
             }
-            let jsonResponse = {};
-            let query = 'SELECT * FROM `municipality` ORDER BY municipality.municipalityNumber ASC;';
+            jsonResponse['municipalities'] = result;
+            let query = 'SELECT * FROM `localdistrict` ORDER BY localdistrict.numberLocalDistrict ASC;';
             database_1.default.query(query, [], (error, result, fields) => {
                 if (error) {
                     return response.json({
-                        code: 202
+                        code: 203
                     });
                 }
-                jsonResponse['municipalities'] = result;
-                let query = 'SELECT * FROM `localdistrict` ORDER BY localdistrict.numberLocalDistrict ASC;';
+                jsonResponse['localDistricts'] = result;
+                let query = 'SELECT * FROM `section` ORDER BY section.section ASC;';
                 database_1.default.query(query, [], (error, result, fields) => {
                     if (error) {
                         return response.json({
-                            code: 203
+                            code: 204
                         });
                     }
-                    jsonResponse['localDistricts'] = result;
-                    let query = 'SELECT * FROM `section` ORDER BY section.section ASC;';
-                    database_1.default.query(query, [], (error, result, fields) => {
-                        if (error) {
-                            return response.json({
-                                code: 204
-                            });
-                        }
-                        jsonResponse['sections'] = result;
-                        jsonResponse['code'] = 205;
-                        return response.json(jsonResponse);
-                    });
+                    jsonResponse['sections'] = result;
+                    jsonResponse['code'] = 205;
+                    return response.json(jsonResponse);
                 });
             });
         });

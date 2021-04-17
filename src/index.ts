@@ -42,7 +42,7 @@ class Server {
         let server = this.app.listen(this.app.get('port'), () => {
             console.log('Server on port', this.app.get('port'));
         });
-        server.setTimeout(5000);
+        server.setTimeout(10000);
     }
 }
 
