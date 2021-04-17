@@ -1,9 +1,11 @@
-import express, { Application } from 'express';
+import express, { Application, NextFunction } from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
 
 import VolunteerRoutes from './routes/volunteerRoutes';
 import SectionRouters from './routes/sectionRouters';
+
+import { HttpException } from './httpException';
 
 class Server {
 
@@ -30,6 +32,10 @@ class Server {
         } catch ( error ) {
             console.log(error);
         }
+    
+        this.app.use((err: HttpException, req: any, res: any, next: NextFunction) => {
+            console.log(err);
+        });
     }
 
     start() {

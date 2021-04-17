@@ -36,7 +36,7 @@ class SectionController {
                         });
                     }
                     jsonResponse['localDistricts'] = result;
-                    let query = 'SELECT * FROM `section` ORDERs BY section.section ASC;';
+                    let query = 'SELECT * FROM `section` ORDER BY section.section ASC;';
                     database_1.default.query(query, [], (error, result, fields) => {
                         if (error) {
                             return response.json({

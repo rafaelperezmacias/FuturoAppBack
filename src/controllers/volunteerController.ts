@@ -36,7 +36,7 @@ class VolunteerController {
         }
 
         let buff = Buffer.from(volunteer.imgString || "", "base64");
-        if ( volunteer.imgString !== "") {
+        if ( volunteer.imgString !== "" ) {
             fs.writeFile('./img/credenciales/' + volunteer.electorKey + ".png", buff, (err) => {
                 if ( err ) {
                     return response.json({
@@ -87,6 +87,7 @@ class VolunteerController {
                         db.query( query, params, (error, result, fields) => {
                             
                             if ( error ) {
+                                
                                 return connection.rollback( () => {
                                     return response.json({
                                         code: 106,

@@ -29,6 +29,9 @@ class Server {
         catch (error) {
             console.log(error);
         }
+        this.app.use((err, req, res, next) => {
+            console.log(err);
+        });
     }
     start() {
         let server = this.app.listen(this.app.get('port'), () => {
