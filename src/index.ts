@@ -24,14 +24,19 @@ class Server {
     }
 
     routes(): void {
-        this.app.use('/api/v1/volunteer', VolunteerRoutes);
-        this.app.use('/api/v1/section', SectionRouters)
+        try {
+            this.app.use('/api/v1/volunteer', VolunteerRoutes);
+            this.app.use('/api/v1/section', SectionRouters);
+        } catch ( error ) {
+            console.log(error);
+        }
     }
 
     start() {
-        this.app.listen(this.app.get('port'), () => {
+        let server = this.app.listen(this.app.get('port'), () => {
             console.log('Server on port', this.app.get('port'));
         });
+        server.setTimeout(5000);
     }
 }
 

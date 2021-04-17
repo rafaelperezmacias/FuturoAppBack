@@ -22,13 +22,19 @@ class Server {
         this.app.use(express_1.default.urlencoded({ limit: '50mb' }));
     }
     routes() {
-        this.app.use('/api/v1/volunteer', volunteerRoutes_1.default);
-        this.app.use('/api/v1/section', sectionRouters_1.default);
+        try {
+            this.app.use('/api/v1/volunteer', volunteerRoutes_1.default);
+            this.app.use('/api/v1/section', sectionRouters_1.default);
+        }
+        catch (error) {
+            console.log(error);
+        }
     }
     start() {
-        this.app.listen(this.app.get('port'), () => {
+        let server = this.app.listen(this.app.get('port'), () => {
             console.log('Server on port', this.app.get('port'));
         });
+        server.setTimeout(5000);
     }
 }
 const server = new Server();
