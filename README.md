@@ -19,6 +19,7 @@
     * _validations_ contiene las validaciones de campos de los modelos
     * _database_ contiene la conexion a la base de datos
     * _keys_ contiene las keys para conexion a la base de datos
+    * _secrets_ contiene la clave secreta para procesar las peticiones
 
 ## Ejemplo de archivo keys
 
@@ -30,6 +31,16 @@ export default {
         user: '',
         password: '',
         database: ''
+    }
+};
+```
+
+## Ejemplo de archivo secrets
+
+```typescript
+export default {
+    secret: {
+        key_request: 'MY_KEY'
     }
 };
 ```
