@@ -27,7 +27,7 @@ class SectionController {
             }
 
             jsonResponse['municipalities'] = result;
-            
+
             let query = 'SELECT * FROM `localdistrict` ORDER BY localdistrict.numberLocalDistrict ASC;';
             db.query( query, [], (error, result: LocalDistrict[], fields) => {
                 if (error) {
