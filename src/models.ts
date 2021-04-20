@@ -4,6 +4,7 @@ export interface Volunteer {
     lastName1: string;
     lastName2: string;
     names: string;
+    age: string;
     addressName: string;
     addressNumExt: string;
     addressNumInt?: string;
@@ -12,6 +13,7 @@ export interface Volunteer {
     electorKey: string;
     email: string;
     phone: string;
+    question1: boolean;
     stateNumber: number;
     section: number;
     sector: string;

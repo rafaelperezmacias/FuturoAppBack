@@ -45,13 +45,14 @@ class VolunteerController {
                     });
                 }
                 
-                const query = 'INSERT INTO `volunteer`(`lastName1`, `lastName2`, `names`, `addressName`, `addressNumExt`, `addressNumInt`,'+
-                                '`suburb`, `zipCode`, `electorKey`, `email`, `phone`, `stateNumber`, `section`, `sector`, `notes`, `typeUser`, `imgString`)'+
-                                'VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+                const query = 'INSERT INTO `volunteer`(`lastName1`, `lastName2`, `names`, `age`, `addressName`, `addressNumExt`, `addressNumInt`,'+
+                                '`suburb`, `zipCode`, `electorKey`, `email`, `phone`, `question1`, `stateNumber`, `section`, `sector`, `notes`, `typeUser`, `imgString`)'+
+                                'VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
                 const params = [
                     volunteer.lastName1,
                     volunteer.lastName2,
                     volunteer.names,
+                    volunteer.age,
                     volunteer.addressName,
                     volunteer.addressNumExt,
                     volunteer.addressNumInt,
@@ -60,6 +61,7 @@ class VolunteerController {
                     volunteer.electorKey,
                     volunteer.email,
                     volunteer.phone,
+                    volunteer.question1,
                     volunteer.stateNumber,
                     volunteer.section,
                     volunteer.sector,
@@ -90,13 +92,14 @@ class VolunteerController {
             
         } else {
 
-            const query = 'INSERT INTO `volunteer`(`lastName1`, `lastName2`, `names`, `addressName`, `addressNumExt`, `addressNumInt`,'+
-                                '`suburb`, `zipCode`, `electorKey`, `email`, `phone`, `stateNumber`, `section`, `sector`, `notes`, `typeUser`, `imgString`)'+
-                                'VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+            const query = 'INSERT INTO `volunteer`(`lastName1`, `lastName2`, `names`, `age`, `addressName`, `addressNumExt`, `addressNumInt`,'+
+                                '`suburb`, `zipCode`, `electorKey`, `email`, `phone`, `question1`, `stateNumber`, `section`, `sector`, `notes`, `typeUser`, `imgString`)'+
+                                'VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
             const params = [
                 volunteer.lastName1,
                 volunteer.lastName2,
                 volunteer.names,
+                volunteer.age,
                 volunteer.addressName,
                 volunteer.addressNumExt,
                 volunteer.addressNumInt,
@@ -105,6 +108,7 @@ class VolunteerController {
                 volunteer.electorKey,
                 volunteer.email,
                 volunteer.phone,
+                volunteer.question1,
                 volunteer.stateNumber,
                 volunteer.section,
                 volunteer.sector,
