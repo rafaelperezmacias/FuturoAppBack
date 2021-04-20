@@ -9,14 +9,14 @@ export interface Volunteer {
     addressNumExt: string;
     addressNumInt?: string;
 	suburb: string;
-    zipCode: string;
+    zipCode?: string;
     electorKey: string;
-    email: string;
+    email?: string;
     phone: string;
     question1: boolean;
     stateNumber: number;
     section: number;
-    sector: string;
+    sector?: string;
     notes?: string;
     typeUser: number;
     imgString?: string

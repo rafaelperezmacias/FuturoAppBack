@@ -36,9 +36,9 @@ export class Validations {
     static isValidVolunteerInsert( volunteer: Volunteer ) : boolean {
 
         if ( !volunteer || !volunteer.lastName1 || !volunteer.lastName2 || !volunteer.names || !volunteer.addressName
-            || !volunteer.addressNumExt || !volunteer.suburb || !volunteer.zipCode 
-            || !volunteer.electorKey || !volunteer.email || !volunteer.phone 
-            || !volunteer.stateNumber || !volunteer.section || !volunteer.sector 
+            || !volunteer.addressNumExt || !volunteer.suburb  
+            || !volunteer.electorKey ||  !volunteer.phone 
+            || !volunteer.stateNumber || !volunteer.section 
             || !volunteer.typeUser ) {
             return false;
         }
@@ -59,11 +59,11 @@ export class Validations {
             || volunteer.addressNumExt.length > this.VOLUNTEER_ADDRESSNUMEXT_LENGTH
             || ( volunteer.addressNumInt && volunteer.addressNumInt.length > this.VOLUNTEER_ADDRESSNUMINT_LENGTH )
             || volunteer.suburb.length > this.VOLUNTEER_SUBURB_LENGTH
-            || volunteer.zipCode.length > this.VOLUNTEER_ZIPCODE_LENGTH
+            || ( volunteer.zipCode && volunteer.zipCode.length > this.VOLUNTEER_ZIPCODE_LENGTH )
             || volunteer.electorKey.length > this.VOLUNTEER_ELECTORKEY_LENGTH
-            || volunteer.email.length > this.VOLUNTEER_EMAIL_LENGTH
+            || ( volunteer.email && volunteer.email.length > this.VOLUNTEER_EMAIL_LENGTH )
             || volunteer.phone.length > this.VOLUNTEER_PHONE_LENGTH
-            || volunteer.sector.length > this.VOLUNTEER_SECTOR_LENGTH
+            || ( volunteer.sector && volunteer.sector.length > this.VOLUNTEER_SECTOR_LENGTH )
             || ( volunteer.notes && volunteer.notes.length > this.VOLUNTEER_NOTES_LENGTH) ) {
             return false;
         }
